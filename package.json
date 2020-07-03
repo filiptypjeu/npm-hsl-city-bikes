@@ -18,9 +18,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:filiptypjeu/"
+        "url": "git@github.com:filiptypjeu/npm-hsl-city-bikes.git"
     },
-    "homepage": "https://github.com/filiptypjeu/",
+    "homepage": "https://github.com/filiptypjeu/npm-hsl-city-bikes",
     "author": "Filip Stenbacka",
     "license": "ISC",
     "types": "dist/index.d.ts",
