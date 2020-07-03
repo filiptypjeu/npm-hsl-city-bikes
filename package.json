@@ -1,0 +1,47 @@
+{
+    "name": "hsl-city-bikes",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "dev": "nodemon src/index.ts",
+        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+        "lint": "tslint -p tsconfig.json",
+        "lint-fix": "tslint -p tsconfig.json --fix",
+        "postversion": "git push && git push --tags",
+        "prepublishOnly": "npm test && npm run lint",
+        "preversion": "npm run lint",
+        "start": "node dist/index.js",
+        "test": "jest --config jestconfig.json",
+        "version": "npm run format && git add -A src"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:filiptypjeu/"
+    },
+    "homepage": "https://github.com/filiptypjeu/",
+    "author": "Filip Stenbacka",
+    "license": "ISC",
+    "types": "dist/index.d.ts",
+    "dependencies": {
+        "graphql-request": "^2.0.0",
+        "node-fetch": "^2.6.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.9.1",
+        "@types/node-fetch": "^2.5.7",
+        "jest": "^24.9.0",
+        "nodemon": "^2.0.4",
+        "prettier": "^1.19.1",
+        "ts-jest": "^26.1.1",
+        "ts-node": "^8.6.1",
+        "tslint": "^5.20.1",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.7.4"
+    },
+    "files": [
+        "dist/**/*"
+    ],
+    "keywords": []
+}
