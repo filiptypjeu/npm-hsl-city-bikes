@@ -33,6 +33,12 @@ test("graphqlApiUrl_set", async () => {
   graphqlApiUrl_set("invalid url");
   expect(graphqlApiUrl_get()).toEqual("invalid url");
 
-  const s = await fetchBikeRentalStations().then(() => { return "not error"; }).catch(e => { return "error" } );
+  const s = await fetchBikeRentalStations()
+    .then(() => {
+      return "not error";
+    })
+    .catch(e => {
+      return "error";
+    });
   expect(s).toEqual("error");
 });
