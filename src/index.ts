@@ -28,7 +28,7 @@ export async function fetchBikeRentalStations(): Promise<IBikeRentalStation[]>;
 export async function fetchBikeRentalStations(stationId: string): Promise<IBikeRentalStation>;
 export async function fetchBikeRentalStations(stationId?: string): Promise<IBikeRentalStation | IBikeRentalStation[]> {
   if (stationId) {
-    const query = `{
+    const q1 = `{
       bikeRentalStation(id:"${stationId}") {
         stationId
         name
@@ -40,12 +40,12 @@ export async function fetchBikeRentalStations(stationId?: string): Promise<IBike
       }
     }`;
 
-    return request(api, query)
+    return request(api, q1)
       .then((res: IBikeRentalStationResponse) => res.bikeRentalStation || Promise.reject("No bike rental stations found."))
       .catch(e => Promise.reject(e));
   }
 
-  const query = `{
+  const q2 = `{
     bikeRentalStations {
       stationId
       name
@@ -57,7 +57,7 @@ export async function fetchBikeRentalStations(stationId?: string): Promise<IBike
     }
   }`;
 
-  return request(api, query)
+  return request(api, q2)
     .then((res: IBikeRentalStationsResponse) => res.bikeRentalStations)
     .catch(e => Promise.reject(e));
 }
