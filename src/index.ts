@@ -14,7 +14,7 @@ export interface IBikeRentalStation {
 }
 
 interface IBikeRentalStationResponse {
-  bikeRentalStation: IBikeRentalStation;
+  bikeRentalStation: IBikeRentalStation | null;
 }
 
 interface IBikeRentalStationsResponse {
@@ -27,8 +27,26 @@ export const graphqlApiUrl_get = (): string => api;
 export async function fetchBikeRentalStations(): Promise<IBikeRentalStation[]>;
 export async function fetchBikeRentalStations(stationId: string): Promise<IBikeRentalStation>;
 export async function fetchBikeRentalStations(stationId?: string): Promise<IBikeRentalStation | IBikeRentalStation[]> {
-  const query = `{ 
-    bikeRentalStation${stationId ? `(id:"${stationId}")` : "s"} {
+  if (stationId) {
+    const query = `{
+      bikeRentalStation(id:"${stationId}") {
+        stationId
+        name
+        bikesAvailable
+        spacesAvailable
+        lat
+        lon
+        allowDropoff
+      }
+    }`;
+
+    return request(api, query)
+      .then((res: IBikeRentalStationResponse) => res.bikeRentalStation || Promise.reject("No bike rental stations found."))
+      .catch(e => Promise.reject(e));
+  }
+
+  const query = `{
+    bikeRentalStations {
       stationId
       name
       bikesAvailable
@@ -39,33 +57,7 @@ export async function fetchBikeRentalStations(stationId?: string): Promise<IBike
     }
   }`;
 
-  let res = await request(api, query).catch(e => {
-    return Promise.reject(e);
-  });
-
-  if (stationId) {
-    res = (res as IBikeRentalStationResponse).bikeRentalStation;
-  } else {
-    res = (res as IBikeRentalStationsResponse).bikeRentalStations;
-  }
-
-  if (!res) {
-    return Promise.reject("No bike rental stations found.");
-  }
-
-  return res;
-
-  if (stationId) {
-    return request(api, query)
-      .then((data: IBikeRentalStationResponse) => {
-        return data.bikeRentalStation;
-      })
-      .catch(e => Promise.reject(e));
-  }
-
   return request(api, query)
-    .then((data: IBikeRentalStationsResponse) => {
-      return data.bikeRentalStations;
-    })
+    .then((res: IBikeRentalStationsResponse) => res.bikeRentalStations)
     .catch(e => Promise.reject(e));
 }
