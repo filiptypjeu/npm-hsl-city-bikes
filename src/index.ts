@@ -41,7 +41,7 @@ interface INearestBikeRentalStationsResponse {
 /**
  * Change the GraphQL API URL from the default one.
  *
- * @param {string} url The new API URL. 
+ * @param {string} url The new API URL.
  */
 export const graphqlApiUrl_set = (url: string) => (api = url);
 
@@ -110,14 +110,16 @@ export async function fetchBikeRentalStations(stationId?: string): Promise<IBike
  *
  * @returns An Array of nodes. A node contains a bike rental station and its distances to the specified location. The nodes are ordered according to the distance, with the closest being the first element.
  */
-export async function fetchNearestBikeRentalStations(lat: number, lon: number, maxResults?: number, maxDistance?: number): Promise<IBikeRentalStationNode[]> {
+export async function fetchNearestBikeRentalStations(
+  lat: number,
+  lon: number,
+  maxResults?: number,
+  maxDistance?: number
+): Promise<IBikeRentalStationNode[]> {
   const query = `{
-    nearest(lat: ${lat}, lon: ${lon}, ${
-      maxResults === undefined
-      ? "" : `maxResults: ${maxResults}, `
-    }${maxDistance === undefined
-      ? "" : `maxDistance: ${maxDistance}, `
-    }filterByPlaceTypes: [BICYCLE_RENT]) {
+    nearest(lat: ${lat}, lon: ${lon}, ${maxResults === undefined ? "" : `maxResults: ${maxResults}, `}${
+    maxDistance === undefined ? "" : `maxDistance: ${maxDistance}, `
+  }filterByPlaceTypes: [BICYCLE_RENT]) {
       edges {
         node {
           place {
