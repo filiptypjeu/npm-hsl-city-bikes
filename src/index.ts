@@ -99,3 +99,45 @@ export async function fetchBikeRentalStations(stationId?: string): Promise<IBike
     .then((res: IBikeRentalStationsResponse) => res.bikeRentalStations)
     .catch(e => Promise.reject(e));
 }
+
+/**
+ * Fetch the nearest bike rental stations.
+ *
+ * @param {number} latitude The latitudal position from where to measure the distance.
+ * @param {number} longitude The longitudal position from where to measure the distance.
+ * @param {number | undefined} maxResults The maximum amount of result to get. Note that this is only a maximum, and that the API usually do not give more than around 15 results.
+ * @param {number | undefined} maxDistance Serach for stations within a certain radius. The distance unit is meters.
+ *
+ * @returns An Array of nodes. A node contains a bike rental station and its distances to the specified location. The nodes are ordered according to the distance, with the closest being the first element.
+ */
+export async function fetchNearestBikeRentalStations(lat: number, lon: number, maxResults?: number, maxDistance?: number): Promise<IBikeRentalStationNode[]> {
+  const query = `{
+    nearest(lat: ${lat}, lon: ${lon}, ${
+      maxResults === undefined
+      ? "" : `maxResults: ${maxResults}, `
+    }${maxDistance === undefined
+      ? "" : `maxDistance: ${maxDistance}, `
+    }filterByPlaceTypes: [BICYCLE_RENT]) {
+      edges {
+        node {
+          place {
+            lat
+            lon
+            ...on BikeRentalStation {
+              name
+              stationId
+              spacesAvailable
+              bikesAvailable
+              allowDropoff
+            }
+          }
+          distance
+        }
+      }
+    }
+  }`;
+
+  return request(api, query)
+    .then((res: INearestBikeRentalStationsResponse) => res.nearest.edges.map(e => e.node))
+    .catch(e => Promise.reject(e));
+}
