@@ -21,10 +21,48 @@ interface IBikeRentalStationsResponse {
   bikeRentalStations: IBikeRentalStation[];
 }
 
+interface IBikeRentalStationNode {
+  place: IBikeRentalStation;
+  distance: number;
+}
+
+interface IBikeRentalStationEdge {
+  node: IBikeRentalStationNode;
+}
+
+interface IBikeRentalStationEdges {
+  edges: IBikeRentalStationEdge[];
+}
+
+interface INearestBikeRentalStationsResponse {
+  nearest: IBikeRentalStationEdges;
+}
+
+/**
+ * Change the GraphQL API URL from the default one.
+ *
+ * @param {string} url The new API URL. 
+ */
 export const graphqlApiUrl_set = (url: string) => (api = url);
+
+/**
+ * Get the current API URL that is being used by the package.
+ */
 export const graphqlApiUrl_get = (): string => api;
 
+/**
+ * Fetch information about all HSL bike rental stations.
+ *
+ * @returns A Promise for an Array of bike rental stations.
+ */
 export async function fetchBikeRentalStations(): Promise<IBikeRentalStation[]>;
+/**
+ * Fetch information about all HSL bike rental stations.
+ *
+ * @param {string} stationId The station number as a string. Note that stations with number below 100 has a leading 0 in their ids.
+ *
+ * @returns A Promise for a bike rental station. Resolves if a station is found, rejects otherwise.
+ */
 export async function fetchBikeRentalStations(stationId: string): Promise<IBikeRentalStation>;
 export async function fetchBikeRentalStations(stationId?: string): Promise<IBikeRentalStation | IBikeRentalStation[]> {
   if (stationId) {
