@@ -1,6 +1,6 @@
 {
     "name": "hsl-city-bikes",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "NPM package for fetching data about city bike station in Helsinki.",
     "main": "dist/index.js",
     "scripts": {
