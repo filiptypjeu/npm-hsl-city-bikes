@@ -1,4 +1,4 @@
-import { fetchBikeRentalStations, graphqlApiUrl_set, graphqlApiUrl_get, fetchNearestBikeRentalStations } from "./../index";
+import { fetchBikeRentalStations, graphqlApiUrl_set, graphqlApiUrl_get, fetchNearestBikeRentalStations } from "../index";
 
 const expectStation = expect.objectContaining({
   stationId: expect.any(String),
