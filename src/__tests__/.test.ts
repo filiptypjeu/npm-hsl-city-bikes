@@ -44,7 +44,7 @@ test("graphqlApiUrl_set", async () => {
     .then(() => {
       return "not error";
     })
-    .catch(e => {
+    .catch((e) => {
       return "error";
     });
   expect(s).toEqual("error");
@@ -74,7 +74,7 @@ test("fetchNearestBikeRentalStations radius=500", async () => {
 
   expect(res).toBeInstanceOf(Array);
   expect(res[0]).toEqual(expectNode);
-  res.forEach(n => expect(n.distance <= 500).toEqual(true));
+  res.forEach((n) => expect(n.distance <= 500).toEqual(true));
 });
 
 test("fetchNearestBikeRentalStations amount=1 radius=500", async () => {

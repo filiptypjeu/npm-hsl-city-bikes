@@ -80,7 +80,7 @@ export async function fetchBikeRentalStations(stationId?: string): Promise<IBike
 
     return request(api, q1)
       .then((res: IBikeRentalStationResponse) => res.bikeRentalStation || Promise.reject("No bike rental stations found."))
-      .catch(e => Promise.reject(e));
+      .catch((e) => Promise.reject(e));
   }
 
   const q2 = `{
@@ -97,7 +97,7 @@ export async function fetchBikeRentalStations(stationId?: string): Promise<IBike
 
   return request(api, q2)
     .then((res: IBikeRentalStationsResponse) => res.bikeRentalStations)
-    .catch(e => Promise.reject(e));
+    .catch((e) => Promise.reject(e));
 }
 
 /**
@@ -140,6 +140,6 @@ export async function fetchNearestBikeRentalStations(
   }`;
 
   return request(api, query)
-    .then((res: INearestBikeRentalStationsResponse) => res.nearest.edges.map(e => e.node))
-    .catch(e => Promise.reject(e));
+    .then((res: INearestBikeRentalStationsResponse) => res.nearest.edges.map((e) => e.node))
+    .catch((e) => Promise.reject(e));
 }
