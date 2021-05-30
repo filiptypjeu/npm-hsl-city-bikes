@@ -26,12 +26,13 @@
     "license": "ISC",
     "types": "dist/index.d.ts",
     "dependencies": {
-        "graphql-request": "^2.0.0",
+        "graphql-request": "^3.4.0",
         "node-fetch": "^2.6.1"
     },
     "devDependencies": {
         "@types/jest": "^26.0.23",
         "@types/node-fetch": "^2.5.10",
+        "graphql": "^15.5.0",
         "jest": "^27.0.3",
         "prettier": "^2.3.0",
         "ts-jest": "^27.0.1",
